@@ -50,6 +50,7 @@ def build_records(commands):
             "trigger": key,
             "response": response,
             "kind": cmd.get("response_type", "static"),
+            "bot": cmd.get("bot", "hostvoice"),
         }
         access = cmd.get("access", "everyone")
         if access != "everyone":
