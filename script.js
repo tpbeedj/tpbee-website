@@ -242,5 +242,55 @@ function renderSocials() {
   }
 }
 
+/* ==========================================================================
+   Live now - Twitch player that only shows while tpbee is live
+   ========================================================================== */
+
+const TWITCH_CHANNEL = "tpbee";
+
+// Loads Twitch's embed player (muted) into a collapsed card and reveals the
+// card only when Twitch reports the channel ONLINE, hiding it again on
+// OFFLINE. No API keys or server needed - the player itself knows the
+// channel's live state. Kept rendered-but-collapsed rather than
+// display:none so the player initialises and its events fire.
+function renderLiveNow() {
+  const section = document.getElementById("live-now");
+  if (!section) return;
+
+  const header = el("a", {
+    class: "live-now-header",
+    href: `https://twitch.tv/${TWITCH_CHANNEL}`,
+    target: "_blank",
+    rel: "noopener noreferrer",
+  }, [
+    el("span", { class: "live-now-badge", text: "LIVE" }),
+    el("span", { class: "live-now-title", text: "tpbee is live on Twitch now" }),
+  ]);
+  const player = el("div", { class: "live-now-player", id: "live-now-player" });
+  section.appendChild(header);
+  section.appendChild(player);
+
+  const script = document.createElement("script");
+  script.src = "https://player.twitch.tv/js/embed/v1.js";
+  script.async = true;
+  script.onload = () => {
+    if (!window.Twitch || !window.Twitch.Player) return;
+    const embed = new window.Twitch.Player("live-now-player", {
+      channel: TWITCH_CHANNEL,
+      // Twitch requires the embedding site's hostname here; using the
+      // current one keeps it working on tpb.ee, www and preview deploys.
+      parent: [window.location.hostname],
+      width: "100%",
+      height: "100%",
+      muted: true,
+      autoplay: true,
+    });
+    embed.addEventListener(window.Twitch.Player.ONLINE, () => section.classList.add("is-live"));
+    embed.addEventListener(window.Twitch.Player.OFFLINE, () => section.classList.remove("is-live"));
+  };
+  document.body.appendChild(script);
+}
+
+renderLiveNow();
 renderLinks();
 renderSocials();
