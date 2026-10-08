@@ -513,7 +513,7 @@ button {
 
 /* Sub-page breadcrumb: "tpbee / episodes" - tpbee goes home. Sits above the page header. */
 .crumb {
-  margin: 0 0 14px;
+  margin: -10px 0 30px;
   padding-left: 21px;
   font-family: var(--font-primary);
   font-size: 14px;
@@ -526,3 +526,30 @@ button {
 }
 .crumb a:hover { color: var(--accent-color); }
 .crumb span { margin: 0 6px; }
+
+/* Home page: platform logos (Listen / Watch), latest-episode card */
+.link-icon.is-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.08);
+}
+.link-icon.is-logo svg { width: 26px; height: 22px; fill: var(--text-color); }
+.link-featured .link-stack { flex-direction: column; gap: 4px; }
+.link-featured-sub {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.65);
+  text-align: center;
+}
+/* Platform rows (Listen / Watch) are left-aligned: text starts just after the logo
+   tile (8 + 48 + 16px). Bits n Bobs rows keep the centred labels. */
+.link-card.link-stack.is-platform { justify-content: flex-start; padding-left: 72px; padding-right: 20px; }
+.link-card.link-stack.is-platform .link-title { text-align: left; }
+
+/* Latest episode: whole square cover on the left, text on the right */
+.link-featured.is-episode { flex-direction: row; align-items: center; }
+.link-featured.is-episode .link-featured-thumb { padding: var(--link-gap); padding-right: 0; flex-shrink: 0; }
+.link-featured.is-episode .link-featured-thumb-inner { aspect-ratio: 1 / 1; width: 120px; }
+.link-featured.is-episode .link-stack { align-items: flex-start; padding-left: 16px; padding-right: 16px; }
+.link-featured.is-episode .link-title,
+.link-featured.is-episode .link-featured-sub { text-align: left; }

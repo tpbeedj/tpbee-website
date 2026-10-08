@@ -14,38 +14,50 @@ const SOCIALS = [
 
 const LINKS = [
   {
+    // Filled from /episodes/episodes.json (newest episode) - this is the fallback.
     type: "featured",
-    title: "Start Here",
-    url: "https://soundcloud.com/tpbee",
-    thumbnail: "assets/thumb-start-here.jpg",
+    latestEpisode: true,
+    title: "Every episode, with tracklists",
+    subtitle: "",
+    url: "/episodes",
+    thumbnail: "/assets/thumb-start-here.jpg",
   },
   {
-    type: "stack-group",
+    type: "group",
+    heading: "Listen",
+    layout: "stack",
     items: [
       {
-        title: "Follow for future mixes",
+        title: "SoundCloud — follow for new mixes",
         url: "https://soundcloud.com/tpbee",
-        icon: "assets/icon-soundcloud-thumb.jpg",
+        platform: "SoundCloud",
       },
       {
-        title: "30-min podcast episodes — DnB: Liquid n Deeper",
+        title: "Apple Podcasts — get every episode",
         url: "https://podcasts.apple.com/us/podcast/diving-deeper-dnb-with-tpbee/id1849227916",
-        icon: "assets/icon-podcast-thumb.jpg",
+        platform: "ApplePodcasts",
       },
       {
-        title: "Every episode, with tracklists",
-        url: "/episodes",
-        icon: "assets/icon-podcast-thumb.jpg",
+        title: "Pocket Casts — get every episode",
+        url: "https://pca.st/itunes/1849227916",
+        platform: "PocketCasts",
       },
+    ],
+  },
+  {
+    type: "group",
+    heading: "Watch",
+    layout: "stack",
+    items: [
       {
-        title: "Watch Live",
+        title: "Twitch — follow to catch the next stream",
         url: "https://twitch.tv/tpbee",
-        icon: "assets/icon-twitch-thumb.jpg",
+        platform: "Twitch",
       },
       {
-        title: "Live streams & mixes",
+        title: "YouTube — past mixes",
         url: "https://www.youtube.com/@tpbee",
-        icon: "assets/thumb-youtube-channel.jpeg",
+        platform: "YouTube",
       },
     ],
   },
@@ -57,32 +69,32 @@ const LINKS = [
       {
         title: "B2B with Quantum Mechanix - March 26",
         url: "https://www.youtube.com/watch?v=iUQl7zqAF5Y",
-        icon: "assets/thumb-b2b-quantum.jpeg",
+        icon: "/assets/thumb-b2b-quantum.jpeg",
       },
       {
         title: "Studio Mix - IA Transmissions - November 25",
         url: "https://soundcloud.com/tpbee/studio-mix",
-        icon: "assets/thumb-studio-mix.jpeg",
+        icon: "/assets/thumb-studio-mix.jpeg",
       },
       {
         title: "Live with Smedz MC - IA Transmissions - July 25",
         url: "https://on.soundcloud.com/IqWnXTYVo629EmnTR6",
-        icon: "assets/thumb-smedz-mc.jpeg",
+        icon: "/assets/thumb-smedz-mc.jpeg",
       },
       {
         title: "FlowCast 046 Guest Mix - April 25",
         url: "https://youtu.be/B9Q1kMUm4yM?si=nZlQ6uXXTpUuuTR3",
-        icon: "assets/thumb-flowcast.jpeg",
+        icon: "/assets/thumb-flowcast.jpeg",
       },
       {
         title: "Sound Stream Sessions - March 25",
         url: "https://on.soundcloud.com/GxkDjXgXXJRoNP9s5",
-        icon: "assets/thumb-sound-stream.jpeg",
+        icon: "/assets/thumb-sound-stream.jpeg",
       },
       {
         title: "IA : Transmission - May 24",
         url: "https://on.soundcloud.com/mgtp7",
-        icon: "assets/thumb-ia-transmission.jpeg",
+        icon: "/assets/thumb-ia-transmission.jpeg",
       },
     ],
   },
@@ -94,12 +106,12 @@ const LINKS = [
       {
         title: "Liquid DnB 2025 Playlists",
         url: "https://www.tunemymusic.com/share/GbN2s7MTUP",
-        icon: "assets/thumb-playlist-2025.jpg",
+        icon: "/assets/thumb-playlist-2025.jpg",
       },
       {
         title: "Liquid DnB 2024 Playlists",
         url: "https://www.tunemymusic.com/share/PZNUJEZyiv",
-        icon: "assets/thumb-playlist-2024.jpg",
+        icon: "/assets/thumb-playlist-2024.jpg",
       },
     ],
   },
@@ -120,6 +132,10 @@ const SOCIAL_ICON_PATHS = {
     '<path d="M12 2C9.2912 2 8.94131 2 7.86907 2.05643C7.03985 2.07241 6.21934 2.22888 5.44244 2.51919C4.78781 2.77878 4.23476 3.11738 3.67043 3.68172C3.11738 4.23476 2.76749 4.78781 2.51919 5.45372C2.27088 6.08578 2.10158 6.80813 2.05643 7.88036C2.01129 8.94131 2 9.27991 2 12C2 14.7088 2 15.0474 2.05643 16.1196C2.10158 17.1919 2.28217 17.9255 2.51919 18.5576C2.77878 19.2122 3.11738 19.7652 3.67043 20.3296C4.23476 20.8826 4.78781 21.2325 5.44244 21.4808C6.08578 21.7291 6.80813 21.8984 7.86907 21.9436C8.94131 21.9887 9.27991 22 12 22C14.7088 22 15.0474 22 16.1196 21.9436C17.1806 21.8984 17.9142 21.7178 18.5463 21.4808C19.2137 21.2306 19.8184 20.8377 20.3183 20.3296C20.8826 19.7652 21.2212 19.2009 21.4695 18.5576C21.7178 17.9142 21.8871 17.1919 21.9436 16.1196C21.9887 15.0587 22 14.7201 22 12C22 9.2912 21.9887 8.9526 21.9436 7.88036C21.9225 7.05065 21.7622 6.23037 21.4695 5.45372C21.2189 4.78649 20.8261 4.18182 20.3183 3.68172C19.754 3.11738 19.2122 2.77878 18.5463 2.51919C17.7686 2.23315 16.9482 2.08051 16.1196 2.06772C15.0474 2.01129 14.7088 2 12 2ZM11.0971 3.80587H12C14.6637 3.80587 14.9797 3.80587 16.0406 3.8623C16.6724 3.8686 17.2985 3.98313 17.8916 4.2009C18.3657 4.38149 18.693 4.59594 19.0429 4.94582C19.3928 5.29571 19.6072 5.63431 19.7991 6.09706C19.9345 6.45824 20.0925 6.97743 20.1377 7.95937C20.1828 9.00903 20.1941 9.32506 20.1941 12C20.1941 14.6637 20.1941 14.9797 20.1377 16.0406C20.1314 16.6724 20.0169 17.2985 19.7991 17.8916C19.6185 18.3657 19.3928 18.693 19.0429 19.0429C18.7043 19.3928 18.3657 19.6072 17.8916 19.7878C17.2992 20.0094 16.6731 20.1278 16.0406 20.1377C14.9797 20.1828 14.6637 20.1941 12 20.1941C9.32506 20.1941 9.00903 20.1941 7.95937 20.1377C7.3238 20.1322 6.69388 20.0177 6.09706 19.7991C5.63431 19.6072 5.307 19.3928 4.94582 19.0429C4.60722 18.7043 4.38149 18.3657 4.2009 17.8916C3.98313 17.2985 3.8686 16.6724 3.8623 16.0406C3.80587 14.9797 3.79458 14.6637 3.79458 12C3.79458 9.32506 3.80587 9.00903 3.85102 7.95937C3.85602 7.32375 3.97057 6.69376 4.18962 6.09706C4.38149 5.63431 4.59594 5.307 4.94582 4.94582C5.29571 4.60722 5.62302 4.38149 6.09706 4.2009C6.69376 3.98185 7.32375 3.86731 7.95937 3.8623C8.87359 3.81716 9.23476 3.80587 11.0971 3.79458V3.80587ZM17.3386 5.46501C17.1815 5.46501 17.0259 5.49596 16.8808 5.55608C16.7356 5.6162 16.6037 5.70433 16.4926 5.81542C16.3815 5.92652 16.2934 6.05841 16.2333 6.20356C16.1732 6.34871 16.1422 6.50429 16.1422 6.6614C16.1422 6.81851 16.1732 6.97408 16.2333 7.11924C16.2934 7.26439 16.3815 7.39628 16.4926 7.50737C16.6037 7.61847 16.7356 7.70659 16.8808 7.76672C17.0259 7.82684 17.1815 7.85779 17.3386 7.85779C17.6559 7.85779 17.9602 7.73174 18.1846 7.50737C18.4089 7.28301 18.535 6.9787 18.535 6.6614C18.535 6.3441 18.4089 6.03979 18.1846 5.81542C17.9602 5.59106 17.6559 5.46501 17.3386 5.46501ZM12 6.86456C11.3256 6.86456 10.6578 6.99739 10.0348 7.25547C9.41169 7.51355 8.84556 7.89182 8.36869 8.36869C7.89182 8.84556 7.51355 9.41169 7.25547 10.0348C6.99739 10.6578 6.86456 11.3256 6.86456 12C6.86456 12.6744 6.99739 13.3422 7.25547 13.9652C7.51355 14.5883 7.89182 15.1544 8.36869 15.6313C8.84556 16.1082 9.41169 16.4864 10.0348 16.7445C10.6578 17.0026 11.3256 17.1354 12 17.1354C13.362 17.1354 14.6682 16.5944 15.6313 15.6313C16.5944 14.6682 17.1354 13.362 17.1354 12C17.1354 10.638 16.5944 9.33178 15.6313 8.36869C14.6682 7.40561 13.362 6.86456 12 6.86456ZM12 8.67043C12.4372 8.67043 12.8702 8.75655 13.2742 8.92388C13.6781 9.0912 14.0452 9.33646 14.3544 9.64564C14.6635 9.95482 14.9088 10.3219 15.0761 10.7258C15.2434 11.1298 15.3296 11.5628 15.3296 12C15.3296 12.4372 15.2434 12.8702 15.0761 13.2742C14.9088 13.6781 14.6635 14.0452 14.3544 14.3544C14.0452 14.6635 13.6781 14.9088 13.2742 15.0761C12.8702 15.2434 12.4372 15.3296 12 15.3296C11.1169 15.3296 10.2701 14.9788 9.64564 14.3544C9.02122 13.7299 8.67043 12.8831 8.67043 12C8.67043 11.1169 9.02122 10.2701 9.64564 9.64564C10.2701 9.02122 11.1169 8.67043 12 8.67043Z"></path>',
   Discord:
     '<path d="M19.6361 5.06633C18.1907 4.40458 16.6648 3.93511 15.0973 3.66992C14.8828 4.05335 14.6888 4.44785 14.5159 4.85177C12.8463 4.60017 11.1484 4.60017 9.47881 4.85177C9.30587 4.44789 9.1118 4.0534 8.8974 3.66992C7.32897 3.93735 5.80205 4.40794 4.35518 5.06979C1.48276 9.31959 0.70409 13.4638 1.09342 17.5492C2.77558 18.7921 4.6584 19.7373 6.66003 20.3438C7.11074 19.7376 7.50956 19.0945 7.85226 18.4213C7.20135 18.1782 6.57311 17.8783 5.9748 17.525C6.13227 17.4108 6.28627 17.2931 6.43508 17.1789C8.17601 17.9977 10.0761 18.4221 12 18.4221C13.9238 18.4221 15.8239 17.9977 17.5648 17.1789C17.7154 17.3018 17.8694 17.4195 18.0251 17.525C17.4257 17.8789 16.7963 18.1794 16.1442 18.4231C16.4865 19.0959 16.8853 19.7385 17.3364 20.3438C19.3398 19.7397 21.224 18.795 22.9065 17.551C23.3633 12.8132 22.1261 8.70704 19.6361 5.06633ZM8.34541 15.0367C7.26047 15.0367 6.36414 14.0522 6.36414 12.8409C6.36414 11.6296 7.22932 10.6364 8.34195 10.6364C9.45458 10.6364 10.344 11.6296 10.325 12.8409C10.3059 14.0522 9.45112 15.0367 8.34541 15.0367ZM15.6545 15.0367C14.5678 15.0367 13.675 14.0522 13.675 12.8409C13.675 11.6296 14.5401 10.6364 15.6545 10.6364C16.7689 10.6364 17.6514 11.6296 17.6323 12.8409C17.6133 14.0522 16.7602 15.0367 15.6545 15.0367Z"></path>',
+  ApplePodcasts:
+    '<path d="M5.34 0A5.328 5.328 0 000 5.34v13.32A5.328 5.328 0 005.34 24h13.32A5.328 5.328 0 0024 18.66V5.34A5.328 5.328 0 0018.66 0zm6.525 2.568c2.336 0 4.448.902 6.056 2.587 1.224 1.272 1.912 2.619 2.264 4.392.12.59.12 2.2.007 2.864a8.506 8.506 0 01-3.24 5.296c-.608.46-2.096 1.261-2.336 1.261-.088 0-.096-.091-.056-.46.072-.592.144-.715.48-.856.536-.224 1.448-.874 2.008-1.435a7.644 7.644 0 002.008-3.536c.208-.824.184-2.656-.048-3.504-.728-2.696-2.928-4.792-5.624-5.352-.784-.16-2.208-.16-3 0-2.728.56-4.984 2.76-5.672 5.528-.184.752-.184 2.584 0 3.336.456 1.832 1.64 3.512 3.192 4.512.304.2.672.408.824.472.336.144.408.264.472.856.04.36.03.464-.056.464-.056 0-.464-.176-.896-.384l-.04-.03c-2.472-1.216-4.056-3.274-4.632-6.012-.144-.706-.168-2.392-.03-3.04.36-1.74 1.048-3.1 2.192-4.304 1.648-1.737 3.768-2.656 6.128-2.656zm.134 2.81c.409.004.803.04 1.106.106 2.784.62 4.76 3.408 4.376 6.174-.152 1.114-.536 2.03-1.216 2.88-.336.43-1.152 1.15-1.296 1.15-.023 0-.048-.272-.048-.603v-.605l.416-.496c1.568-1.878 1.456-4.502-.256-6.224-.664-.67-1.432-1.064-2.424-1.246-.64-.118-.776-.118-1.448-.008-1.02.167-1.81.562-2.512 1.256-1.72 1.704-1.832 4.342-.264 6.222l.413.496v.608c0 .336-.027.608-.06.608-.03 0-.264-.16-.512-.36l-.034-.011c-.832-.664-1.568-1.842-1.872-2.997-.184-.698-.184-2.024.008-2.72.504-1.878 1.888-3.335 3.808-4.019.41-.145 1.133-.22 1.814-.211zm-.13 2.99c.31 0 .62.06.844.178.488.253.888.745 1.04 1.259.464 1.578-1.208 2.96-2.72 2.254h-.015c-.712-.331-1.096-.956-1.104-1.77 0-.733.408-1.371 1.112-1.745.224-.117.534-.176.844-.176zm-.011 4.728c.988-.004 1.706.349 1.97.97.198.464.124 1.932-.218 4.302-.232 1.656-.36 2.074-.68 2.356-.44.39-1.064.498-1.656.288h-.003c-.716-.257-.87-.605-1.164-2.644-.341-2.37-.416-3.838-.218-4.302.262-.616.974-.966 1.97-.97z"></path>',
+  PocketCasts:
+    '<path d="M12,0C5.372,0,0,5.372,0,12c0,6.628,5.372,12,12,12c6.628,0,12-5.372,12-12 C24,5.372,18.628,0,12,0z M15.564,12c0-1.968-1.596-3.564-3.564-3.564c-1.968,0-3.564,1.595-3.564,3.564 c0,1.968,1.595,3.564,3.564,3.564V17.6c-3.093,0-5.6-2.507-5.6-5.6c0-3.093,2.507-5.6,5.6-5.6c3.093,0,5.6,2.507,5.6,5.6H15.564z M19,12c0-3.866-3.134-7-7-7c-3.866,0-7,3.134-7,7c0,3.866,3.134,7,7,7v2.333c-5.155,0-9.333-4.179-9.333-9.333 c0-5.155,4.179-9.333,9.333-9.333c5.155,0,9.333,4.179,9.333,9.333H19z"></path>',
   Email:
     '<path d="M4.30606 7.28017C4.14002 7.62375 4.06901 7.99473 4.03469 8.4148C3.99999 8.83953 3.99999 9.36401 4 10.0143V13.9857C3.99999 14.6359 3.99999 15.1604 4.03469 15.5852C4.07042 16.0225 4.14591 16.4066 4.32698 16.7619C4.6146 17.3264 5.07354 17.7854 5.63803 18.073C5.9934 18.2541 6.37752 18.3296 6.81483 18.3653C7.23955 18.4 7.76404 18.4 8.4143 18.4H15.5857C16.236 18.4 16.7605 18.4 17.1852 18.3653C17.6225 18.3296 18.0066 18.2541 18.362 18.073C18.9265 17.7854 19.3854 17.3264 19.673 16.7619C19.8541 16.4066 19.9296 16.0225 19.9653 15.5852C20 15.1604 20 14.6359 20 13.9857V10.0143C20 9.36401 20 8.83953 19.9653 8.4148C19.931 7.99473 19.86 7.62375 19.6939 7.28017L13.8997 12.0209C12.7946 12.9251 11.2054 12.9251 10.1003 12.0209L4.30606 7.28017Z"></path><path d="M18.9609 6.3295C18.7792 6.17262 18.5783 6.0372 18.362 5.92696C18.0066 5.74588 17.6225 5.6704 17.1852 5.63467C16.7605 5.59997 16.236 5.59997 15.5857 5.59998H8.41432C7.76406 5.59997 7.23955 5.59997 6.81483 5.63467C6.37752 5.6704 5.9934 5.74588 5.63803 5.92696C5.42166 6.0372 5.2208 6.17262 5.03915 6.3295L10.8602 11.0922C11.5232 11.6347 12.4768 11.6347 13.1398 11.0922L18.9609 6.3295Z"></path>',
 };
@@ -148,20 +164,25 @@ function linkTarget(url) {
 
 function renderStackItem(item) {
   const card = el("a", {
-    class: "link-card link-stack",
+    class: "link-card link-stack" + (item.platform ? " is-platform" : ""),
     href: item.url,
     ...linkTarget(item.url),
   });
-  card.appendChild(
-    el("span", { class: "link-icon" }, el("img", { src: item.icon, alt: "", loading: "lazy" }))
-  );
+  if (item.platform) {
+    const icon = el("span", { class: "link-icon is-logo", html: `<svg viewBox="0 0 24 24" aria-hidden="true">${SOCIAL_ICON_PATHS[item.platform]}</svg>` });
+    card.appendChild(icon);
+  } else {
+    card.appendChild(
+      el("span", { class: "link-icon" }, el("img", { src: item.icon, alt: "", loading: "lazy" }))
+    );
+  }
   card.appendChild(el("span", { class: "link-title", text: item.title }));
   return card;
 }
 
 function renderFeatured(item) {
   const card = el("a", {
-    class: "link-card link-featured",
+    class: "link-card link-featured" + (item.isEpisode ? " is-episode" : ""),
     href: item.url,
     ...linkTarget(item.url),
   });
@@ -176,7 +197,10 @@ function renderFeatured(item) {
   card.appendChild(thumbWrap);
 
   card.appendChild(
-    el("span", { class: "link-stack" }, el("span", { class: "link-title", text: item.title }))
+    el("span", { class: "link-stack" }, [
+      el("span", { class: "link-title", text: item.title }),
+      item.subtitle ? el("span", { class: "link-featured-sub", text: item.subtitle }) : null,
+    ])
   );
 
   return card;
@@ -298,6 +322,37 @@ function renderLiveNow() {
   document.body.appendChild(script);
 }
 
+// "jazzz nice — Liquid Drum & Bass Mix | tpbee / Timmy [S03E11]" -> "jazzz nice (S03E11)"
+function shortEpisodeName(title) {
+  const code = (title.match(/\[(S\d+E\d+)\]/) || [])[1];
+  let name = title.split(/\s[—–-]\s/)[0].replace(/^S\d+E\d+\s+/, "").trim();
+  return code ? `${name} (${code})` : name;
+}
+
+async function fillLatestEpisode() {
+  const block = LINKS.find((b) => b.latestEpisode);
+  if (!block) return;
+  try {
+    const eps = await (await fetch("/episodes/episodes.json", { cache: "no-cache" })).json();
+    if (!eps.length) return;
+    block.title = `Latest episode: ${shortEpisodeName(eps[0].title)}`;
+    block.subtitle = "Play it here — plus every past episode, with tracklists";
+    block.thumbnail = eps[0].image;
+    block.isEpisode = true; // square cover - shown whole, not cropped to 16:9
+  } catch (err) {
+    // keep the fallback card
+  }
+}
+
+// Brand marks don't fill their 24x24 box equally (SoundCloud is short and wide), so crop
+// each one's viewBox to its own shape - every logo then fills the tile the same way.
+function fitLogos() {
+  document.querySelectorAll(".link-icon.is-logo svg").forEach((svg) => {
+    const b = svg.getBBox();
+    if (b.width && b.height) svg.setAttribute("viewBox", `${b.x} ${b.y} ${b.width} ${b.height}`);
+  });
+}
+
 renderLiveNow();
-renderLinks();
+fillLatestEpisode().then(renderLinks).then(fitLogos);
 renderSocials();
