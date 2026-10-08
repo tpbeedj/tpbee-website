@@ -33,6 +33,11 @@ const LINKS = [
         icon: "assets/icon-podcast-thumb.jpg",
       },
       {
+        title: "Every episode, with tracklists",
+        url: "/episodes",
+        icon: "assets/icon-podcast-thumb.jpg",
+      },
+      {
         title: "Watch Live",
         url: "https://twitch.tv/tpbee",
         icon: "assets/icon-twitch-thumb.jpg",
