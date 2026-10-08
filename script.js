@@ -141,12 +141,16 @@ function el(tag, attrs = {}, children = []) {
   return node;
 }
 
+// Pages on tpb.ee open in the same tab (they have a "tpbee /" crumb back); other sites open in a new one.
+function linkTarget(url) {
+  return url.startsWith("/") ? {} : { target: "_blank", rel: "noopener noreferrer" };
+}
+
 function renderStackItem(item) {
   const card = el("a", {
     class: "link-card link-stack",
     href: item.url,
-    target: "_blank",
-    rel: "noopener noreferrer",
+    ...linkTarget(item.url),
   });
   card.appendChild(
     el("span", { class: "link-icon" }, el("img", { src: item.icon, alt: "", loading: "lazy" }))
@@ -159,8 +163,7 @@ function renderFeatured(item) {
   const card = el("a", {
     class: "link-card link-featured",
     href: item.url,
-    target: "_blank",
-    rel: "noopener noreferrer",
+    ...linkTarget(item.url),
   });
 
   const thumbWrap = el("div", { class: "link-featured-thumb" });
@@ -183,8 +186,7 @@ function renderGridItem(item) {
   const card = el("a", {
     class: "link-card link-grid-card",
     href: item.url,
-    target: "_blank",
-    rel: "noopener noreferrer",
+    ...linkTarget(item.url),
   });
 
   const thumbWrap = el("div", { class: "link-grid-thumb" });

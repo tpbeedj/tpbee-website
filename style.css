@@ -510,3 +510,19 @@ button {
 #site-footer a:hover {
   opacity: 1;
 }
+
+/* Sub-page breadcrumb: "tpbee / episodes" - tpbee goes home. Sits above the page header. */
+.crumb {
+  margin: 0 0 14px;
+  padding-left: 21px;
+  font-family: var(--font-primary);
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+}
+.crumb a {
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: 700;
+}
+.crumb a:hover { color: var(--accent-color); }
+.crumb span { margin: 0 6px; }
