@@ -1,0 +1,49 @@
+# Puts a scheduled episode on tpb.ee once it's live on SoundCloud.
+# The Promo Studio publisher writes episodes/release.json (episode + release time) and
+# pushes it. Every 15 minutes this checks it; once the time has passed it rebuilds
+# episodes.json from the SoundCloud feed and pushes - Cloudflare Pages then deploys.
+# If the feed doesn't list the episode yet, it tries again on the next run.
+name: Release episode
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-episode
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check release time
+        id: due
+        run: |
+          result=$(python3 episodes/release_due.py)
+          echo "$result"
+          echo "state=${result%% *}" >> "$GITHUB_OUTPUT"
+          echo "code=${result#* }" >> "$GITHUB_OUTPUT"
+
+      - name: Rebuild episode list
+        if: steps.due.outputs.state == 'due'
+        run: python3 episodes/build_episodes.py
+
+      - name: Push if the episode is in
+        if: steps.due.outputs.state == 'due'
+        env:
+          CODE: ${{ steps.due.outputs.code }}
+        run: |
+          if ! grep -qi "\[$CODE\]" episodes/episodes.json; then
+            echo "$CODE isn't in SoundCloud's feed yet - trying again next run"
+            exit 0
+          fi
+          git config user.name "tpbee release bot"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git commit -m "Update episodes list ($CODE)" -- episodes/episodes.json
+          git push
