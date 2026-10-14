@@ -18,7 +18,7 @@
 
 <meta property="og:title" content="tpbee — Nottingham Drum &amp; Bass DJ">
 <meta property="og:description" content="tpbee is a Nottingham-based drum &amp; bass DJ and longtime selector focused on liquid, minimal and deeper DNB.">
-<meta property="og:image" content="https://tpb.ee/assets/og-image.jpg?v=1">
+<meta property="og:image" content="https://tpb.ee/assets/og-image.jpg?v=2">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:url" content="https://tpb.ee/about">
@@ -28,7 +28,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="tpbee — Nottingham Drum &amp; Bass DJ">
 <meta name="twitter:description" content="tpbee is a Nottingham-based drum &amp; bass DJ and longtime selector focused on liquid, minimal and deeper DNB.">
-<meta name="twitter:image" content="https://tpb.ee/assets/og-image.jpg?v=1">
+<meta name="twitter:image" content="https://tpb.ee/assets/og-image.jpg?v=2">
 
 <link rel="icon" href="/assets/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
@@ -66,14 +66,13 @@
 
 <style>
   body {
-    padding-top: 24px;
     padding-bottom: 60px;
   }
 
   #about-page {
     max-width: 640px;
     margin: 0 auto;
-    padding: 32px 20px 0;
+    padding: 0 20px 0;
   }
 
   #about-header {
@@ -82,24 +81,6 @@
     gap: 16px;
     margin-bottom: 24px;
     padding-left: 21px;
-  }
-
-  #about-header a {
-    display: block;
-    flex-shrink: 0;
-    line-height: 0;
-    transition: opacity 120ms ease;
-  }
-
-  #about-header a:hover {
-    opacity: 0.85;
-  }
-
-  #about-header img {
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    object-fit: cover;
   }
 
   #about-header h1 {
@@ -193,14 +174,20 @@
 
 <div id="page-background" aria-hidden="true"></div>
 
+<!-- Site header, the same on every page: the tpb.ee sticker (links home), avatar + tagline -->
+<div id="site-top">
+  <a id="sticker-hero" href="/" aria-label="tpb.ee home"><img src="/assets/header-sticker.jpg" alt="tpb.ee" width="1200" height="754"></a>
+  <header id="profile-header">
+    <img id="avatar" src="/assets/avatar.jpg" alt="tpbee profile picture" width="96" height="96">
+    <p id="tagline">DJ &amp; OBS tinkerer | Liquid &amp; deeper DnB &ndash; mixes worth replaying</p>
+  </header>
+</div>
+
 <main id="about-page">
 
   <nav class="crumb" aria-label="Breadcrumb"><a href="/">tpbee</a><span>/</span>about</nav>
 
   <header id="about-header">
-    <a href="/" aria-label="Back to tpb.ee">
-      <img src="/assets/avatar.jpg" alt="tpbee profile picture" width="64" height="64">
-    </a>
     <h1>About tpbee</h1>
   </header>
 
