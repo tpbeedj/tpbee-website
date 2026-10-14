@@ -526,9 +526,16 @@ button {
 }
 
 /* Sub-page breadcrumb: "tpbee / episodes" - tpbee goes home. Sits above the page header. */
+/* Sub pages: crumb + page title start in line with the site header's avatar.
+   Their column is 640px (20px padding) against the header's 580px, so the
+   indent grows from 21px on phones to 51px once the column is full width. */
+:root {
+  --sub-indent: calc(max(0px, (min(100vw, 640px) - 580px) / 2) + 21px);
+}
+
 .crumb {
   margin: -10px 0 30px;
-  padding-left: 21px;
+  padding-left: var(--sub-indent);
   font-family: var(--font-primary);
   font-size: 14px;
   color: rgba(255, 255, 255, 0.6);
@@ -568,12 +575,8 @@ button {
 .link-featured.is-episode .link-title,
 .link-featured.is-episode .link-featured-sub { text-align: left; }
 
-/* Home's "tpbee / home" crumb: same spot as on the sub pages, whose column is
-   640px wide (20px padding) against home's 580px */
+/* Home's "tpbee / home" crumb: starts in line with the avatar above it */
 #page > .crumb {
   align-self: stretch;
   padding-left: 41px;
-}
-@media screen and (min-width: 640px) {
-  #page > .crumb { padding-left: 11px; }
 }
