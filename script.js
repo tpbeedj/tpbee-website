@@ -102,7 +102,9 @@ const LINKS = [
     type: "group",
     heading: "...& some playlists",
     layout: "grid",
-    // Shown under the tiles. Remove once the 2026 playlist is out and has its own tile.
+    // intro: under the heading. note: under the tiles - remove it once the 2026 playlists
+    // are out and have their own tile.
+    intro: "Tap one to add the playlists to your streaming app",
     note: "Liquid DnB 2026 Playlists - coming December",
     items: [
       {
@@ -256,6 +258,7 @@ function renderLinks() {
       container.appendChild(wrap);
     } else if (block.type === "group") {
       container.appendChild(el("h2", { class: "link-group-heading", text: block.heading }));
+      if (block.intro) container.appendChild(el("p", { class: "link-group-note", text: block.intro }));
       if (block.layout === "grid") {
         const grid = el("div", { class: "link-grid" });
         block.items.forEach((item) => grid.appendChild(renderGridItem(item)));

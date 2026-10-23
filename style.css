@@ -588,7 +588,7 @@ button {
   border-radius: var(--link-inner-radius);
 }
 
-/* "Coming soon" line under the playlist tiles */
+/* Small lines above/below the playlist tiles (what they are, what's coming) */
 .link-group-note {
   margin: 0;
   text-align: center;
