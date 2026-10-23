@@ -323,6 +323,13 @@ function renderLiveNow() {
   section.appendChild(header);
   section.appendChild(player);
 
+  // Twitch's player sets cookies, so it only loads once the visitor has allowed them
+  // (assets/consent.js) - at once if they already have, else when they press Allow.
+  if (window.tpbeeConsent) window.tpbeeConsent.whenAllowed(loadTwitchPlayer);
+}
+
+function loadTwitchPlayer() {
+  const section = document.getElementById("live-now");
   const script = document.createElement("script");
   script.src = "https://player.twitch.tv/js/embed/v1.js";
   script.async = true;

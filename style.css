@@ -601,3 +601,87 @@ button {
   align-self: stretch;
   padding-left: 41px;
 }
+
+/* Cookie question (assets/consent.js): Google Analytics only loads after "Allow".
+   Both buttons look the same - saying no is as easy as saying yes. */
+.cookie-banner {
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  z-index: 50;
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 14px 16px;
+  border-radius: var(--link-radius);
+  background: var(--page-fallback-color);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
+  font-family: var(--font-primary);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.cookie-banner p,
+.cookie-banner ul {
+  margin: 0 0 10px;
+}
+
+.cookie-banner ul {
+  padding-left: 18px;
+}
+
+.cookie-banner li + li {
+  margin-top: 6px;
+}
+
+.cookie-banner a {
+  text-decoration: underline;
+}
+
+/* A long question on a short screen scrolls inside the box, never past the buttons. */
+.cookie-banner {
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+}
+
+.cookie-banner-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.cookie-banner-buttons button {
+  flex: 1;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: var(--link-inner-radius);
+  background: var(--link-bg);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.cookie-banner-buttons button:hover {
+  background: var(--link-bg-hover);
+}
+
+.cookie-settings {
+  padding: 0;
+  border: 0;
+  background: none;
+  opacity: 0.6;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.cookie-settings:hover {
+  opacity: 1;
+}
+
+#site-footer .cookie-settings {
+  margin-left: 16px;
+}
+
+.cookie-settings-line {
+  margin: 8px 0 24px;
+  text-align: center;
+}

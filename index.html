@@ -1,25 +1,8 @@
 <!doctype html>
 <html lang="en">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-3CTKX5TWD7"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-3CTKX5TWD7');
-
-  // Clicks between tpb.ee's own pages as a "link_click" event. Links off the site are
-  // already counted by GA4's built-in "click" event (outbound clicks).
-  document.addEventListener('click', function (e) {
-    var a = e.target.closest && e.target.closest('a[href]');
-    if (a && a.hostname === location.hostname) gtag('event', 'link_click', {
-      link_url: a.href,
-      link_text: (a.getAttribute('aria-label') || a.textContent).trim().replace(/\s+/g, ' ').slice(0, 100)
-    });
-  });
-</script>
+<!-- Google Analytics only after consent - see assets/consent.js -->
+<script src="/assets/consent.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>tpbee — Liquid &amp; Deeper Drum &amp; Bass DJ</title>

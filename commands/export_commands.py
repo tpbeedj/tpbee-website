@@ -135,7 +135,9 @@ def regenerate(source=None, force=False):
     if warnings and not force:
         return {"blocked": True, "warnings": warnings, "changes": diff}
 
-    payload = "var COMMANDS = " + json.dumps(records, ensure_ascii=False, indent=2) + ";"
+    # "</" written as "<\/" (the same text to JavaScript and json.loads): a reply
+    # containing "</script>" would otherwise end the page's script early.
+    payload = "var COMMANDS = " + json.dumps(records, ensure_ascii=False, indent=2).replace("</", "<\\/") + ";"
     replacement = f"{START_MARKER}\n  {payload}\n  {END_MARKER}"
     pattern = re.compile(re.escape(START_MARKER) + r".*?" + re.escape(END_MARKER), re.DOTALL)
     # Use a function repl, not a string one - re.sub treats backslashes (\n, \1, ...)
