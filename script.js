@@ -103,7 +103,7 @@ const LINKS = [
     heading: "...& some playlists",
     layout: "grid",
     // Shown under the tiles. Remove once the 2026 playlist is out and has its own tile.
-    note: "Liquid DnB 2026 playlist - coming December",
+    note: "Liquid DnB 2026 Playlists - coming December",
     items: [
       {
         title: "Liquid DnB 2025 Playlists",
