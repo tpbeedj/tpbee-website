@@ -296,6 +296,7 @@ function renderSocials() {
    ========================================================================== */
 
 const TWITCH_CHANNEL = "tpbee";
+let twitchEmbed = null; // set once the player loads; keepOnePlaying() mutes it
 
 // Loads Twitch's embed player (muted) into a collapsed card and reveals the
 // card only when Twitch reports the channel ONLINE, hiding it again on
@@ -324,7 +325,7 @@ function renderLiveNow() {
   script.async = true;
   script.onload = () => {
     if (!window.Twitch || !window.Twitch.Player) return;
-    const embed = new window.Twitch.Player("live-now-player", {
+    const embed = twitchEmbed = new window.Twitch.Player("live-now-player", {
       channel: TWITCH_CHANNEL,
       // Twitch requires the embedding site's hostname here; using the
       // current one keeps it working on tpb.ee, www and preview deploys.
@@ -372,6 +373,33 @@ function fitLogos() {
   });
 }
 
+// Only one thing plays at a time on home: starting the mix mutes the Twitch stream,
+// and unmuting the stream pauses the mix. Twitch's player has no "unmuted" event,
+// so while the mix plays the stream's mute is checked once a second.
+function keepOnePlaying() {
+  const frame = document.querySelector(".episode-player");
+  if (!frame) return;
+  const script = document.createElement("script");
+  script.src = "https://w.soundcloud.com/player/api.js";
+  script.onload = () => {
+    if (!window.SC || !window.SC.Widget) return;
+    const mix = window.SC.Widget(frame);
+    const events = window.SC.Widget.Events;
+    let watch = null;
+    const stopWatching = () => clearInterval(watch);
+    mix.bind(events.PLAY, () => {
+      if (twitchEmbed) twitchEmbed.setMuted(true);
+      stopWatching();
+      watch = setInterval(() => {
+        if (twitchEmbed && !twitchEmbed.getMuted()) mix.pause();
+      }, 1000);
+    });
+    mix.bind(events.PAUSE, stopWatching);
+    mix.bind(events.FINISH, stopWatching);
+  };
+  document.body.appendChild(script);
+}
+
 renderLiveNow();
-fillLatestEpisode().then(renderLinks).then(fitLogos);
+fillLatestEpisode().then(renderLinks).then(fitLogos).then(keepOnePlaying);
 renderSocials();
