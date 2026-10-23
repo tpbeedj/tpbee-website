@@ -639,6 +639,21 @@ button {
   text-decoration: underline;
 }
 
+/* The short question shows first; "more" opens the detail below it. */
+.cookie-more {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.cookie-detail[hidden] {
+  display: none;
+}
+
 /* A long question on a short screen scrolls inside the box, never past the buttons. */
 .cookie-banner {
   max-height: calc(100vh - 32px);

@@ -70,7 +70,12 @@
     // Says who sets what. The counts are the cookies seen in testing (2026-10-23):
     // Google _ga + _ga_3CTKX5TWD7; Twitch 6 on twitch.tv + 1 on twitchcdn.net.
     banner.innerHTML =
-      '<p><strong>Can tpb.ee use cookies from these two?</strong> Nothing loads from either until you say yes.</p>' +
+      // Short question first; "more" opens the detail (user 2026-10-23: the full text up
+      // front was confusing).
+      '<p class="cookie-question"><strong>Can tpb.ee use cookies?</strong> ' +
+      '<button type="button" class="cookie-more" aria-expanded="false" aria-controls="cookie-detail">more</button></p>' +
+      '<div class="cookie-detail" id="cookie-detail" hidden>' +
+      '<p>Only for two things, and nothing loads from either until you say yes:</p>' +
       '<ul>' +
       '<li><strong>Google Analytics</strong> - counts visits and which links get clicked, so I can see what ' +
       'gets played. 2 cookies, set by Google. ' +
@@ -80,11 +85,20 @@
       '<a href="https://legal.twitch.com/legal/cookie-notice/" target="_blank" rel="noopener">How Twitch uses them</a></li>' +
       '</ul>' +
       '<p>Your answer is saved in this browser - change it any time with <em>Cookies</em> at the bottom of the page.</p>' +
+      '</div>' +
       '<div class="cookie-banner-buttons">' +
       '<button type="button" data-choice="yes">Allow</button>' +
       '<button type="button" data-choice="no">No thanks</button>' +
       '</div>';
     banner.addEventListener('click', function (e) {
+      var more = e.target.closest && e.target.closest('.cookie-more');
+      if (more) {
+        var open = more.getAttribute('aria-expanded') !== 'true';
+        more.setAttribute('aria-expanded', open ? 'true' : 'false');
+        more.textContent = open ? 'less' : 'more';
+        banner.querySelector('.cookie-detail').hidden = !open;
+        return;
+      }
       var picked = e.target.getAttribute && e.target.getAttribute('data-choice');
       if (!picked) return;
       var before = choice();
