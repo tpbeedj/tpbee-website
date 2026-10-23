@@ -208,7 +208,8 @@ function renderFeatured(item) {
   if (!item.trackId) return card;
 
   // Latest episode: the box holds the cover + title link and a SoundCloud player,
-  // so it plays right here (plays still count on SoundCloud).
+  // so it plays right here (plays still count on SoundCloud). Same visual player
+  // (dark, artwork background) as /episodes - keep the two matching.
   card.classList.remove("link-card");
   const player = el("iframe", {
     class: "episode-player",
@@ -216,8 +217,8 @@ function renderFeatured(item) {
     allow: "autoplay",
     loading: "lazy",
     src: "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/" + item.trackId +
-      "&color=%23e0356e&visual=false&show_artwork=false&auto_play=false&hide_related=true" +
-      "&show_comments=false&show_user=false&show_reposts=false&show_teaser=false",
+      "&visual=true&auto_play=false&hide_related=true&show_comments=false&show_user=true" +
+      "&show_reposts=false&show_teaser=false",
   });
   return el("div", { class: "link-card episode-card" }, [card, player]);
 }
