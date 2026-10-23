@@ -79,8 +79,7 @@
       '7 cookies, set by Twitch. ' +
       '<a href="https://legal.twitch.com/legal/cookie-notice/" target="_blank" rel="noopener">How Twitch uses them</a></li>' +
       '</ul>' +
-      '<p>tpb.ee doesn\'t use them for ads or sell anything. Your answer is saved in this browser - change it ' +
-      'any time with <em>Cookies</em> at the bottom of the page.</p>' +
+      '<p>Your answer is saved in this browser - change it any time with <em>Cookies</em> at the bottom of the page.</p>' +
       '<div class="cookie-banner-buttons">' +
       '<button type="button" data-choice="yes">Allow</button>' +
       '<button type="button" data-choice="no">No thanks</button>' +
