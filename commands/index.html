@@ -9,6 +9,16 @@
   gtag('js', new Date());
 
   gtag('config', 'G-3CTKX5TWD7');
+
+  // Clicks between tpb.ee's own pages as a "link_click" event. Links off the site are
+  // already counted by GA4's built-in "click" event (outbound clicks).
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href]');
+    if (a && a.hostname === location.hostname) gtag('event', 'link_click', {
+      link_url: a.href,
+      link_text: (a.getAttribute('aria-label') || a.textContent).trim().replace(/\s+/g, ' ').slice(0, 100)
+    });
+  });
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">

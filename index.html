@@ -9,15 +9,25 @@
   gtag('js', new Date());
 
   gtag('config', 'G-3CTKX5TWD7');
+
+  // Clicks between tpb.ee's own pages as a "link_click" event. Links off the site are
+  // already counted by GA4's built-in "click" event (outbound clicks).
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href]');
+    if (a && a.hostname === location.hostname) gtag('event', 'link_click', {
+      link_url: a.href,
+      link_text: (a.getAttribute('aria-label') || a.textContent).trim().replace(/\s+/g, ' ').slice(0, 100)
+    });
+  });
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>tpbee — Links</title>
-<meta name="description" content="View tpbee's links to discover and stream music from top platforms like SoundCloud. DJ &amp; OBS tinkerer | Liquid &amp; deeper DnB.">
+<title>tpbee — Liquid &amp; Deeper Drum &amp; Bass DJ</title>
+<meta name="description" content="Nottingham drum &amp; bass DJ tpbee: liquid and deeper DnB mixes worth replaying, live sets on Twitch, and every episode with full tracklists.">
 <link rel="canonical" href="https://tpb.ee/">
 
-<meta property="og:title" content="tpbee — Links">
-<meta property="og:description" content="View tpbee's links to discover and stream music from top platforms like SoundCloud. DJ &amp; OBS tinkerer | Liquid &amp; deeper DnB.">
+<meta property="og:title" content="tpbee — Liquid &amp; Deeper Drum &amp; Bass DJ">
+<meta property="og:description" content="Nottingham drum &amp; bass DJ tpbee: liquid and deeper DnB mixes worth replaying, live sets on Twitch, and every episode with full tracklists.">
 <meta property="og:image" content="https://tpb.ee/assets/og-image.jpg?v=2">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -26,8 +36,8 @@
 <meta property="og:site_name" content="tpbee">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="tpbee — Links">
-<meta name="twitter:description" content="View tpbee's links to discover and stream music from top platforms like SoundCloud. DJ &amp; OBS tinkerer | Liquid &amp; deeper DnB.">
+<meta name="twitter:title" content="tpbee — Liquid &amp; Deeper Drum &amp; Bass DJ">
+<meta name="twitter:description" content="Nottingham drum &amp; bass DJ tpbee: liquid and deeper DnB mixes worth replaying, live sets on Twitch, and every episode with full tracklists.">
 <meta name="twitter:image" content="https://tpb.ee/assets/og-image.jpg?v=2">
 
 <link rel="icon" href="assets/favicon.ico" sizes="any">

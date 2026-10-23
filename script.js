@@ -102,6 +102,8 @@ const LINKS = [
     type: "group",
     heading: "...& some playlists",
     layout: "grid",
+    // Shown under the tiles. Remove once the 2026 playlist is out and has its own tile.
+    note: "Liquid DnB 2026 playlist - coming December",
     items: [
       {
         title: "Liquid DnB 2025 Playlists",
@@ -203,7 +205,21 @@ function renderFeatured(item) {
     ])
   );
 
-  return card;
+  if (!item.trackId) return card;
+
+  // Latest episode: the box holds the cover + title link and a SoundCloud player,
+  // so it plays right here (plays still count on SoundCloud).
+  card.classList.remove("link-card");
+  const player = el("iframe", {
+    class: "episode-player",
+    title: `Play ${item.title} on SoundCloud`,
+    allow: "autoplay",
+    loading: "lazy",
+    src: "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/" + item.trackId +
+      "&color=%23e0356e&visual=false&show_artwork=false&auto_play=false&hide_related=true" +
+      "&show_comments=false&show_user=false&show_reposts=false&show_teaser=false",
+  });
+  return el("div", { class: "link-card episode-card" }, [card, player]);
 }
 
 function renderGridItem(item) {
@@ -243,6 +259,7 @@ function renderLinks() {
         const grid = el("div", { class: "link-grid" });
         block.items.forEach((item) => grid.appendChild(renderGridItem(item)));
         container.appendChild(grid);
+        if (block.note) container.appendChild(el("p", { class: "link-group-note", text: block.note }));
       } else {
         const wrap = el("div", { class: "link-group-items" });
         block.items.forEach((item) => wrap.appendChild(renderStackItem(item)));
@@ -336,8 +353,9 @@ async function fillLatestEpisode() {
     const eps = await (await fetch("/episodes/episodes.json", { cache: "no-cache" })).json();
     if (!eps.length) return;
     block.title = `Latest episode: ${shortEpisodeName(eps[0].title)}`;
-    block.subtitle = "Play it here — plus every past episode, with tracklists";
+    block.subtitle = "Every past episode, with tracklists";
     block.thumbnail = eps[0].image;
+    block.trackId = eps[0].track_id;
     block.isEpisode = true; // square cover - shown whole, not cropped to 16:9
   } catch (err) {
     // keep the fallback card

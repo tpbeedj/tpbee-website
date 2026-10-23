@@ -575,6 +575,27 @@ button {
 .link-featured.is-episode .link-title,
 .link-featured.is-episode .link-featured-sub { text-align: left; }
 
+/* Latest episode with its SoundCloud player: the outer box is the card, so it
+   doesn't lift on hover (the player is in it); the cover + title link lights up instead */
+.episode-card:hover { background: var(--link-bg); box-shadow: var(--link-shadow); transform: none; }
+.episode-card .link-featured:hover .link-title { color: var(--accent-color); }
+.episode-player {
+  display: block;
+  width: calc(100% - 2 * var(--link-gap));
+  height: 166px;
+  margin: 0 var(--link-gap) var(--link-gap);
+  border: 0;
+  border-radius: var(--link-inner-radius);
+}
+
+/* "Coming soon" line under the playlist tiles */
+.link-group-note {
+  margin: 0;
+  text-align: center;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.65);
+}
+
 /* Home's "tpbee / home" crumb: starts in line with the avatar above it */
 #page > .crumb {
   align-self: stretch;
